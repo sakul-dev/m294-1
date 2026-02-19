@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Home } from "lucide-react";
 
 const kurs_url = "http://localhost/hoffmann-295/src/backend/kurs.php";
 
@@ -22,6 +23,7 @@ export default function KursCreatePage() {
     dauer_in_tagen: 0
   });
 
+  // Speichert den neuen Kurs über die API und navigiert zurück zur Liste
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -56,7 +58,18 @@ export default function KursCreatePage() {
                 <Input type="text" onChange={(e) => setFormData({...formData, kursNummer: e.target.value})} />
               </div>
             </div>
-            <Button type="submit" className="w-full">Kurs anlegen</Button>
+            <div>
+              <div className="flex items-center justify-start space-x-2 mb-4">
+                <Button type="button" variant="outline" onClick={() => router.back()}>
+                  <Home className="mr-2 h-4 w-4" />
+                  Zurück
+                </Button>
+                <Button type="button" variant="outline" onClick={() => router.push("/kurse")}>
+                  Abbrechen
+                </Button>
+              </div>
+              <Button type="submit" className="w-full">Kurs anlegen</Button>
+            </div>
           </form>
         </CardContent>
       </Card>

@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Home } from "lucide-react";
 
 const lehrbetrieb_url = "http://localhost/hoffmann-295/src/backend/lehrbetrieb.php";
 
@@ -42,13 +43,12 @@ export default function LehrbetriebeEditPage() {
     }
   }, [id]);
 
+  // Lädt die Lehrbetriebs-Daten von der API basierend auf der ID
   const loadlehrbetrieb = async () => {
     try {
       setLoading(true);
-      // Fetch with ID parameter
       const response = await fetch(`${lehrbetrieb_url}?id_lehrbetrieb=${id}`);
       const data = await response.json();
-      // Backend returns array, get first item
       setFormData(Array.isArray(data) && data.length > 0 ? data[0] : data);
     } catch (error) {
       console.error("Failed to load Lehrbetriebe:", error);
@@ -67,6 +67,7 @@ export default function LehrbetriebeEditPage() {
     }));
   };
 
+  // Speichert die Änderungen über die API und navigiert zurück zur Liste
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -114,7 +115,7 @@ export default function LehrbetriebeEditPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label>Vorname</Label>
+                <Label>Firma</Label>
                 <Input
                   name="firma"
                   value={formData.firma || ""}
@@ -124,7 +125,7 @@ export default function LehrbetriebeEditPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Nachname</Label>
+                <Label>Ort</Label>
                 <Input
                   name="ort"
                   value={formData.ort || ""}
@@ -137,7 +138,7 @@ export default function LehrbetriebeEditPage() {
             <Separator />
 
             <div className="space-y-2">
-              <Label>E-Mail</Label>
+              <Label>PLZ</Label>
               <Input
                 name="platz"
                 value={formData.platz || ""}
@@ -146,7 +147,7 @@ export default function LehrbetriebeEditPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Private E-Mail</Label>
+              <Label>Strasse</Label>
               <Input
                 name="strasse"
                 value={formData.strasse || ""}
@@ -157,6 +158,15 @@ export default function LehrbetriebeEditPage() {
             <Separator />
 
             <div className="flex justify-end space-x-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/")}
+                disabled={saving}
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Home
+              </Button>
               <Button
                 type="button"
                 variant="outline"

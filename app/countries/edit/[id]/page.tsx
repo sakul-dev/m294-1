@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Home } from "lucide-react";
 
 const countries_url = 'http://localhost/hoffmann-295/src/backend/countries.php';
 
@@ -33,6 +34,7 @@ export default function CountryEditPage() {
     if (id) loadCountry();
   }, [id]);
 
+  // Lädt die Länderdaten von der API basierend auf der ID
   const loadCountry = async () => {
     try {
       setLoading(true);
@@ -53,6 +55,7 @@ export default function CountryEditPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Speichert die Änderungen über die API und navigiert zurück zur Liste
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -108,6 +111,15 @@ export default function CountryEditPage() {
             <Separator />
 
             <div className="flex justify-end space-x-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/")}
+                disabled={saving}
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Home
+              </Button>
               <Button
                 type="button"
                 variant="outline"

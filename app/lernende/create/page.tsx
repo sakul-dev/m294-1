@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { Home } from "lucide-react";
 
 const lernenden_url = "http://localhost/hoffmann-295/src/backend/lernende.php";
 
@@ -51,6 +52,7 @@ export default function LernendeCreatePage() {
     }));
   };
 
+  // Speichert den neuen Lernenden über die API und navigiert zurück zur Liste
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -207,6 +209,15 @@ export default function LernendeCreatePage() {
             <Separator />
 
             <div className="flex justify-end space-x-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/")}
+                disabled={saving}
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Home
+              </Button>
               <Button
                 type="button"
                 variant="outline"

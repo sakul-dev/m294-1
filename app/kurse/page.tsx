@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Plus } from "lucide-react";
+import { Plus, Home } from "lucide-react";
 
 // Assuming your backend follows the same naming convention
 const kurs_url = "http://localhost/hoffmann-295/src/backend/kurs.php";
@@ -25,6 +25,7 @@ export default function KursPage() {
   const [list, setList] = useState<IKurs[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Lädt alle Kurse von der API
   const loadData = async () => {
     try {
       setLoading(true);
@@ -45,6 +46,7 @@ export default function KursPage() {
     router.push(`/kurse/edit/${item.id_kurs}`);
   };
 
+  // Löscht einen Kurs nach Bestätigung und aktualisiert die Liste
   const handleDelete = async (item: IKurs) => {
     if (confirm(`Möchten Sie den Kurs "${item.kursThema}" wirklich löschen?`)) {
       try {
@@ -64,9 +66,15 @@ export default function KursPage() {
             <CardTitle>Kurs Management</CardTitle>
             <CardDescription>Verwalten Sie Kursinhalte, Dozenten und Termine</CardDescription>
           </div>
-          <Button onClick={() => router.push("/kurse/create")}>
-            <Plus className="mr-2 h-4 w-4" /> Neuer Kurs
-          </Button>
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" onClick={() => router.push("/")}>
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Button>
+            <Button onClick={() => router.push("/kurse/create")}>
+              <Plus className="mr-2 h-4 w-4" /> Neuer Kurs
+            </Button>
+          </div>
         </CardHeader>
         <Separator />
         <CardContent className="pt-6">

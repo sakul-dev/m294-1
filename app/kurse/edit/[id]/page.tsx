@@ -34,10 +34,11 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ILernende } from "@/app/lernende/ILernende";
+import { Home } from "lucide-react";
 
 const BASE_URL = "http://127.0.0.1/hoffmann-295/src/backend";
 
-// Safely extract an array from any API response shape
+// Hilfsfunktion: extrahiert Arrays aus verschiedenen API-Response-Formaten
 function extractArray(data: unknown): any[] {
   if (Array.isArray(data)) return data;
   if (data && typeof data === "object") {
@@ -64,6 +65,7 @@ export default function KursEditPage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [defaultGrade, setDefaultGrade] = useState("5.0");
 
+  // Lädt Kursdetails, aktuelle Teilnehmer und alle verfügbaren Lernenden von der API
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
@@ -82,7 +84,7 @@ export default function KursEditPage() {
       const partData = await partRes.json();
       setParticipants(extractArray(partData));
 
-      // 3. Alle verfügbaren Lernenden laden (?all triggers getAll() in CrudProvider)
+      // 3. Alle verfügbaren Lernenden laden
       const studRes = await fetch(`${BASE_URL}/lernende.php?all`);
       if (!studRes.ok) throw new Error(`lernende.php returned ${studRes.status}`);
       const studData = await studRes.json();
@@ -110,6 +112,7 @@ export default function KursEditPage() {
     );
   };
 
+  // Fügt mehrere ausgewählte Lernende mit Standard-Note zum Kurs hinzu
   const handleBulkAdd = async () => {
     if (selectedIds.length === 0) return;
     try {
@@ -129,6 +132,7 @@ export default function KursEditPage() {
     }
   };
 
+  // Entfernt einen Lernenden aus dem Kurs über die API
   const handleRemoveParticipant = async (nrLernende: string) => {
     try {
       await fetch(
@@ -154,9 +158,15 @@ export default function KursEditPage() {
     <main className="p-8 max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Kurs verwalten</h1>
-        <Button variant="outline" onClick={() => router.push("/kurse")}>
-          Zurück
-        </Button>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" onClick={() => router.push("/")}>
+            <Home className="mr-2 h-4 w-4" />
+            Home
+          </Button>
+          <Button variant="outline" onClick={() => router.back()}>
+            Zurück
+          </Button>
+        </div>
       </div>
 
       {error && (

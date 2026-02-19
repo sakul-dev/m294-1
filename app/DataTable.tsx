@@ -17,13 +17,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil, Trash } from "lucide-react";
 
+// Props für die generische DataTable-Komponente
 interface DataTableProps<T> {
-  data: T[];
-  columns: { header: string; accessor: keyof T }[];
-  onDelete?: (item: T) => void;
-  onEdit?: (item: T) => void;
+  data: T[]; // Array mit Datenelementen
+  columns: { header: string; accessor: keyof T }[]; // Spalten-Definition (Header + Dateneigenschaften)
+  onDelete?: (item: T) => void; // Optional: Callback für Löschen-Aktion
+  onEdit?: (item: T) => void; // Optional: Callback für Bearbeiten-Aktion
 }
 
+// Generische, wiederverwendbare Datentabelle mit dynamischen Spalten und Aktionen (Bearbeiten/Löschen)
 export default function DataTable<T>({
   data,
   columns,
@@ -50,6 +52,7 @@ export default function DataTable<T>({
 
         <TableBody>
           {data.length > 0 ? (
+            // Rendert jedes Datenelement als Tabellenzeile mit dynamischen Spalten
             data.map((item, idx) => (
               <TableRow key={idx}>
                 {columns.map((col) => (
@@ -60,6 +63,7 @@ export default function DataTable<T>({
 
                 {(onEdit || onDelete) && (
                   <TableCell className="text-right">
+                    {/* Dropdown-Menü für Zeilen-Aktionen (Bearbeiten / Löschen) */}
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button

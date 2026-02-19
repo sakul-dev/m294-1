@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Home } from "lucide-react";
 
 const dozenten_url = 'http://localhost/hoffmann-295/src/backend/dozenten.php';
 
@@ -40,13 +41,14 @@ export default function CountryCreatePage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Speichert den neuen Dozenten über die API und navigiert zurück zur Liste
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     
     try {
       await apiService.create(formData, dozenten_url);
-      router.push("/countries");
+      router.push("/dozenten");
     } catch (error) {
       console.error("Save error:", error);
       alert("Fehler beim Speichern");
@@ -160,6 +162,15 @@ export default function CountryCreatePage() {
             <Separator />
 
             <div className="flex justify-end space-x-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/")}
+                disabled={saving}
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Home
+              </Button>
               <Button
                 type="button"
                 variant="outline"

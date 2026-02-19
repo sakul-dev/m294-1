@@ -1,6 +1,6 @@
+// Zentral API-Service für CRUD-Operationen (Create, Read, Update, Delete) gegen das Backend
 export const apiService = {
-  // Fetch all records using the '?all' flag required by CrudProvider
-  
+  // Holt alle Datensätze von der API
   async getAll<T>(url: string): Promise<T> {
     const res = await fetch(`${url}?all`);
     const data = await res.json();
@@ -8,7 +8,7 @@ export const apiService = {
     return data;
   },
 
-  // Create a new record (POST)
+  // Erstellt einen neuen Datensatz über POST-Request
   async create (data: any, url: string) {
     const res = await fetch(`${url}`, {
       method: 'POST',
@@ -19,8 +19,8 @@ export const apiService = {
   },
 
   /**
-   * Update an existing record (PUT)
-   * The CrudProvider expects the ID (id_lernende) to be inside the data object
+   * Aktualisiert einen bestehenden Datensatz über PUT-Request
+   * Die ID-Spalte muss im data-Objekt enthalten sein
    */
   async update (data: any, url: string) {
     const res = await fetch(`${url}`, {
@@ -33,7 +33,7 @@ export const apiService = {
     return result;
   },
 
-  // Delete a record using query parameters
+  // Löscht einen Datensatz über DELETE-Request mit ID als Query-Parameter
   delete: async (id: number, url: string, idColumn: string) => {
     const res = await fetch(`${url}?${idColumn}=${id}`, {
       method: 'DELETE',

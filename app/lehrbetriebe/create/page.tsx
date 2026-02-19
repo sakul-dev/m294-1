@@ -16,8 +16,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Home } from "lucide-react";
 
-const lehrbetriebe_url = "http://localhost/hoffmann-295/src/backend/ILehrbetriebe.php";
+const lehrbetriebe_url = "http://localhost/hoffmann-295/src/backend/lehrbetrieb.php";
 
 export default function LehrbetriebeCreatePage() {
   const router = useRouter();
@@ -37,6 +38,7 @@ export default function LehrbetriebeCreatePage() {
     }));
   };
 
+  // Speichert den neuen Lehrbetrieb über die API und navigiert zurück zur Liste
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -68,7 +70,7 @@ export default function LehrbetriebeCreatePage() {
               <div className="space-y-2">
                 <Label>Firma</Label>
                 <Input
-                  name="Firma"
+                  name="firma"
                   value={formData.firma || ""}
                   onChange={handleChange}
                   required
@@ -89,7 +91,7 @@ export default function LehrbetriebeCreatePage() {
             <Separator />
 
             <div className="space-y-2">
-              <Label>E-platz</Label>
+              <Label>PLZ</Label>
               <Input
                 name="platz"
                 value={formData.platz || ""}
@@ -97,9 +99,27 @@ export default function LehrbetriebeCreatePage() {
               />
             </div>
 
+            <div className="space-y-2">
+              <Label>Strasse</Label>
+              <Input
+                name="strasse"
+                value={formData.strasse || ""}
+                onChange={handleChange}
+              />
+            </div>
+
             <Separator />
 
             <div className="flex justify-end space-x-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/")}
+                disabled={saving}
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Home
+              </Button>
               <Button
                 type="button"
                 variant="outline"

@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Plus } from "lucide-react";
+import { Plus, Home } from "lucide-react";
 
 const lehrbetrieb_url = "http://localhost/hoffmann-295/src/backend/lehrbetrieb.php";
 
@@ -25,6 +25,7 @@ export default function LehrbetriebePage() {
   const [list, setList] = useState<ILehrbetriebe[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Lädt alle Lehrbetriebe von der API
   const loadData = async () => {
     try {
       setLoading(true);
@@ -49,6 +50,7 @@ export default function LehrbetriebePage() {
     router.push(`/lehrbetriebe/edit/${item.id_lehrbetrieb}`);
   };
 
+  // Löscht einen Lehrbetrieb nach Bestätigung und aktualisiert die Liste
   const handleDelete = async (item: ILehrbetriebe) => {
     if (
       confirm(
@@ -79,10 +81,16 @@ export default function LehrbetriebePage() {
             </CardDescription>
           </div>
 
-          <Button onClick={handleCreateNew}>
-            <Plus className="mr-2 h-4 w-4" />
-            Neuer Lehrbetrieb
-          </Button>
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" onClick={() => router.push("/")}>
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Button>
+            <Button onClick={handleCreateNew}>
+              <Plus className="mr-2 h-4 w-4" />
+              Neuer Lehrbetrieb
+            </Button>
+          </div>
         </CardHeader>
 
         <Separator />

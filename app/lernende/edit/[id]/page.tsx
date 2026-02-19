@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Home } from "lucide-react";
 
 const lernenden_url = "http://localhost/hoffmann-295/src/backend/lernende.php";
 
@@ -42,13 +43,13 @@ export default function LernendeEditPage() {
     }
   }, [id]);
 
+  // Lädt die Lernenden-Daten von der API basierend auf der ID
   const loadLernende = async () => {
     try {
       setLoading(true);
       // Fetch with ID parameter
       const response = await fetch(`${lernenden_url}?id_lernende=${id}`);
       const data = await response.json();
-      // Backend returns array, get first item
       setFormData(Array.isArray(data) && data.length > 0 ? data[0] : data);
     } catch (error) {
       console.error("Failed to load lernende:", error);
@@ -67,6 +68,7 @@ export default function LernendeEditPage() {
     }));
   };
 
+  // Speichert die Änderungen über die API und navigiert zurück zur Liste
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -241,6 +243,15 @@ export default function LernendeEditPage() {
             <Separator />
 
             <div className="flex justify-end space-x-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/")}
+                disabled={saving}
+              >
+                <Home className="mr-2 h-4 w-4" />
+                Home
+              </Button>
               <Button
                 type="button"
                 variant="outline"

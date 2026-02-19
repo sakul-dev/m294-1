@@ -1,3 +1,4 @@
+// Client-Komponente (wird im Browser ausgeführt)
 "use client";
 
 import { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Plus } from "lucide-react";
+import { Plus, Home } from "lucide-react";
 
 const lernenden_url = "http://localhost/hoffmann-295/src/backend/lernende.php";
 
@@ -25,6 +26,7 @@ export default function LernendePage() {
   const [list, setList] = useState<ILernende[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Lädt alle Lernenden von der API
   const loadData = async () => {
     try {
       setLoading(true);
@@ -49,6 +51,7 @@ export default function LernendePage() {
     router.push(`/lernende/edit/${item.id_lernende}`);
   };
 
+  // Löscht einen Lernenden nach Bestätigung und aktualisiert die Liste
   const handleDelete = async (item: ILernende) => {
     if (
       confirm(
@@ -79,10 +82,16 @@ export default function LernendePage() {
             </CardDescription>
           </div>
 
-          <Button onClick={handleCreateNew}>
-            <Plus className="mr-2 h-4 w-4" />
-            Neuer Lernender
-          </Button>
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" onClick={() => router.push("/")}>
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Button>
+            <Button onClick={handleCreateNew}>
+              <Plus className="mr-2 h-4 w-4" />
+              Neuer Lernender
+            </Button>
+          </div>
         </CardHeader>
 
         <Separator />
