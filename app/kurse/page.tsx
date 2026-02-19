@@ -18,7 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Plus } from "lucide-react";
 
 // Assuming your backend follows the same naming convention
-const kurs_url = "http://localhost/hoffmann-295/src/backend/kurse.php";
+const kurs_url = "http://localhost/hoffmann-295/src/backend/kurs.php";
 
 export default function KursPage() {
   const router = useRouter();

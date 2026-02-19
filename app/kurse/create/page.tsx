@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const kurs_url = "http://localhost/hoffmann-295/src/backend/kurse.php";
+const kurs_url = "http://localhost/hoffmann-295/src/backend/kurs.php";
 
 export default function KursCreatePage() {
   const router = useRouter();
@@ -50,6 +50,10 @@ export default function KursCreatePage() {
               <div className="space-y-2">
                 <Label>Dauer (Tage)</Label>
                 <Input type="number" onChange={(e) => setFormData({...formData, dauer_in_tagen: parseInt(e.target.value)})} />
+              </div>
+              <div className="space-y-2">
+                <Label>Kursnummer</Label>
+                <Input type="text" onChange={(e) => setFormData({...formData, kursNummer: e.target.value})} />
               </div>
             </div>
             <Button type="submit" className="w-full">Kurs anlegen</Button>
